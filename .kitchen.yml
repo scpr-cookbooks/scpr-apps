@@ -1,0 +1,21 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-12.04
+
+suites:
+  - name: default
+    run_list:
+      - recipe[scpr-apps::default]
+    attributes:
+      scpr_apps:
+        config:
+          scprv4:
+            test:
+              roles:    ['web','worker']
+              hostname: scprv4.kitchen
