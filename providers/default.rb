@@ -1,6 +1,6 @@
 include Chef::DSL::IncludeRecipe
 
-use_inline_resources
+#use_inline_resources
 
 def set_up_config(&block)
   (SCPRAppsStore.stashed[new_resource.name]||[]).each do |key,app_config|
@@ -9,6 +9,11 @@ def set_up_config(&block)
 
     # set up our directory path
     dir = [ new_resource.base_path, name ].join("/")
+
+    # pull any settings values from Consul
+    (SCPRAppsStore.pull_consul_settings("#{new_resource.name}/#{key}")||{}).each do |k,v|
+      app_config[k] = v
+    end
 
     yield key, name, dir, app_config
   end

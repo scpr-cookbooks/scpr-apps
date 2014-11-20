@@ -15,12 +15,23 @@ scpr_apps "scprv4" do
       include_recipe "nginx_passenger"
 
       # Call nginx setup
+      # FIXME: Need to configure max workers here
       nginx_passenger_site "scprv4" do
         action      :create
         dir         "#{dir}/current"
         server      config.hostname
         rails_env   key
         log_format  "combined_timing"
+      end
+
+      # -- consul advertising -- #
+
+      scpr_consul_web_service name do
+        action    :create
+        dir       dir
+        hostname  config.hostname
+        path      "/"
+        interval  '5s'
       end
     },
     worker: ->(key,name,dir,config) {
@@ -41,12 +52,10 @@ scpr_apps "scprv4" do
         })
       end
 
-    },
-    scheduler: ->(key,name,dir,config) {
       # Set up rufus-scheduler
 
 
-    }
+    },
   })
 
 end

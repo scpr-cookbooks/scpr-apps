@@ -4,6 +4,10 @@
 #
 # Copyright (c) 2014 Southern California Public Radio, All Rights Reserved.
 
+# -- Make sure consul agent is installed -- #
+
+include_recipe "scpr-consul"
+
 # -- Look for app configuration -- #
 
 # FIXME: The use of a databag is just a placeholder for now. Eventually this

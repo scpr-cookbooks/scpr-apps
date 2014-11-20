@@ -26,4 +26,9 @@ module SCPRAppsStore
 
     true
   end
+
+  def self.pull_consul_settings(key)
+    # FIXME: Implement
+    return {}
+  end
 end

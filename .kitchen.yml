@@ -14,6 +14,8 @@ suites:
       - recipe[scpr-apps::default]
     attributes:
       scpr_apps:
+        consul:
+          service_mode: bootstrap
         config:
           scprv4:
             test:
