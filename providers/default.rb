@@ -82,6 +82,26 @@ action :run do
 
     # -- Deploy Credentials -- #
 
+    directory "#{dir}/.ssh" do
+      action  :create
+      owner   name
+      mode    0700
+    end
+
+    # Pre-seed a known_hosts file that knows github
+    cookbook_file "#{dir}/.ssh/known_hosts" do
+      action  :create_if_missing
+      owner   name
+      mode    0600
+    end
+
+    # Write our deploy credentials
+    cookbook_file "#{dir}/.ssh/authorized_keys" do
+      action  :create
+      owner   name
+      mode    0600
+    end
+
     # -- Roles? -- #
 
     puts "app roles is #{ app_config.roles }"
