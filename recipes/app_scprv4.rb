@@ -28,7 +28,7 @@ scpr_apps "scprv4" do
 
       scpr_consul_web_service name do
         action    :create
-        dir       dir
+        dir       "#{dir}/current"
         hostname  config.hostname
         path      "/"
         interval  '5s'
