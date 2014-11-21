@@ -10,3 +10,4 @@ attribute :bash_path,   kind_of:String
 attribute :base_path,   kind_of:String, default:node.scpr_apps.base_path
 attribute :app_type,    kind_of:Symbol
 attribute :env,         kind_of:Hash
+attribute :deploy_key,  kind_of:[String,Array]

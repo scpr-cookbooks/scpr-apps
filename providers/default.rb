@@ -95,11 +95,14 @@ action :run do
       mode    0600
     end
 
-    # Write our deploy credentials
-    cookbook_file "#{dir}/.ssh/authorized_keys" do
-      action  :create
-      owner   name
-      mode    0600
+    if new_resource.deploy_key
+      # Write our deploy credentials
+      file "#{dir}/.ssh/authorized_keys" do
+        action  :create
+        owner   name
+        mode    0600
+        content new_resource.deploy_key.is_a?(Array) ? new_resource.deploy_key.join("\n") : new_resource.deploy_key
+      end
     end
 
     # -- Roles? -- #

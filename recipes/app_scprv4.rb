@@ -9,6 +9,7 @@ scpr_apps "scprv4" do
   capistrano  true
   ruby        "2.1"
   app_type    :rails
+  deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDHmN31EI2C6FmIj263YK5xHIp7PXw8SOp5Cp0QkxgXbn4kMIemC0TQ5oRbSuEqQAgDWYbBYSVxU24u6+PvuyjRbaP3+hpi89XrEMGbWJVZgdjaQuId0p+D/JLh7RPvNWgA5dMHJilGemAVl+4nw3jN/GVbx08zs9NxZGrJQGqdtdTF8Z4U0BFMzmY581UtqDMNa9LNNR9OREvhNaK4OO5g92Mw5R5CXZlVDLQMGWqL3mETGLT8OYo0echlWBH1rS2H2RdtXI05X8Y8zX7s30JVYWgFXm/zIEZzip7Yc6Kll8fBSK25/cx7gYAf1YOCh2xrySggVBDKxftIwmlpts1X scprv4_deploy@scpr"
 
   roles({
     web: ->(key,name,dir,config) {
@@ -52,7 +53,15 @@ scpr_apps "scprv4" do
         })
       end
 
-      # Set up rufus-scheduler
+      # -- register service -- #
+
+      consul_service_def "#{name}_worker" do
+        action    :create
+        tags      ["worker"]
+        notifies  :reload, "service[consul]"
+      end
+
+      # Set up scheduler
 
 
     },

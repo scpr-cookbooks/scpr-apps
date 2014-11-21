@@ -8,6 +8,10 @@
 
 include_recipe "scpr-consul"
 
+# -- Default Requirements -- #
+
+package "git"
+
 # -- Look for app configuration -- #
 
 # FIXME: The use of a databag is just a placeholder for now. Eventually this
