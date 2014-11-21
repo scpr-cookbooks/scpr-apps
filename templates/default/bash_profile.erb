@@ -1,6 +1,4 @@
-<% if @resource.bash_path %>
-export PATH=<%= @bash_path %>:~/bin:$PATH
-<% end %>
+export PATH=~/bin:<%= @bash_path ? "#{@bash_path}:" : "" %>$PATH
 
 <% if @resource.app_type == :rails %>
 export RAILS_ENV=<%= @key %>
@@ -10,4 +8,4 @@ export RAILS_ENV=<%= @key %>
 export <%= k %>=<%= v %>
 <% end %>
 
-export PS1="[ewrcode (\u@\h)-([\`date +\"%a %B %d %l:%M%p\"\`])]\n\w: "
+export PS1="[(\u@\h)-([\`date +\"%a %B %d %l:%M%p\"\`])]\n\w: "
