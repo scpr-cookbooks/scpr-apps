@@ -16,6 +16,7 @@ action :install do
   packages = []
 
   packages << "ruby#{new_resource.version}"
+  packages << "ruby#{new_resource.version}-dev"
   #packages << "rubygems"
 
   packages.each do |p|
