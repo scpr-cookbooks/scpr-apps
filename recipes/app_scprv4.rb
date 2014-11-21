@@ -4,6 +4,8 @@
 #
 # Copyright (c) 2014 Southern California Public Radio, All Rights Reserved.
 
+package "libmysqlclient-dev"
+
 scpr_apps "scprv4" do
   action      :run
   capistrano  true
