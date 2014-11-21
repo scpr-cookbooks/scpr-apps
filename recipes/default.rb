@@ -11,6 +11,7 @@ include_recipe "scpr-consul"
 # -- Default Requirements -- #
 
 package "git"
+include_recipe "nodejs"
 
 # -- Look for app configuration -- #
 
