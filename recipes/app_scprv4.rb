@@ -19,7 +19,7 @@ scpr_apps "scprv4" do
 
       # Call nginx setup
       # FIXME: Need to configure max workers here
-      nginx_passenger_site "scprv4" do
+      nginx_passenger_site name do
         action      :create
         dir         "#{dir}/current"
         server      config.hostname
