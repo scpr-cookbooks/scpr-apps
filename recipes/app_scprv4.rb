@@ -5,6 +5,7 @@
 # Copyright (c) 2014 Southern California Public Radio, All Rights Reserved.
 
 package "libmysqlclient-dev"
+package "libcurl4-openssl-dev"
 
 scpr_apps "scprv4" do
   action      :run
@@ -51,7 +52,7 @@ scpr_apps "scprv4" do
         path          "#{dir}/bin"
         env({
           "TERM_CHILD"  => 1,
-          "RAILS_ENV"   => name
+          "RAILS_ENV"   => key
         })
       end
 
