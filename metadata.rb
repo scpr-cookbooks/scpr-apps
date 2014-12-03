@@ -4,10 +4,11 @@ maintainer_email 'erichardson@scpr.org'
 license          'all_rights'
 description      'Installs/Configures scpr-apps'
 long_description 'Installs/Configures scpr-apps'
-version          '0.1.14'
+version          '0.1.15'
 
 depends "apt"
 depends "nginx_passenger"
 depends "lifeguard"
 depends "scpr-consul"
 depends "nodejs"
+depends "python", "~ 1.4.6"

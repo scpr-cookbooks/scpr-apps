@@ -23,6 +23,8 @@ action :run do
   set_up_config do |key,name,dir,app_config|
     puts "Running config for #{key} || #{name} || #{dir} || #{app_config}"
 
+    env = Hashie::Mash.new(new_resource.env)
+
     # -- create user -- #
 
     user name do
@@ -54,18 +56,6 @@ action :run do
         action  [:install,:link]
         dir     "#{dir}/bin"
       end
-    end
-
-    # -- bash config -- #
-
-    template "#{dir}/.bash_profile" do
-      action  :create
-      mode    0644
-      owner   name
-      source  "bash_profile.erb"
-      variables({
-        key:key, name:name, dir:dir, app_config:app_config, resource:new_resource
-      })
     end
 
     # -- Capistrano Directories? -- #
@@ -105,13 +95,30 @@ action :run do
       end
     end
 
+    # -- Base Setup? -- #
+
+    if new_resource.setup
+      instance_exec(key,name,dir,app_config,env,&new_resource.setup)
+    end
+
+    # -- bash config -- #
+
+    ["bash_profile","bashrc"].each do |f|
+      template "#{dir}/.#{f}" do
+        action  :create
+        mode    0644
+        owner   name
+        source  "#{f}.erb"
+        variables({
+          key:key, name:name, dir:dir, app_config:app_config, resource:new_resource, bash_path:new_resource.bash_path, env:env
+        })
+      end
+    end
+
     # -- Roles? -- #
 
-    puts "app roles is #{ app_config.roles }"
     (app_config.roles||[]).each do |r|
-      puts "role is #{r}"
       if new_resource.roles[ r.to_sym ]
-        puts "calling role"
         instance_exec(key,name,dir,app_config,&new_resource.roles[ r.to_sym ])
       else
         raise "Invalid role for SCPR app: #{new_resource.name}/#{r}"

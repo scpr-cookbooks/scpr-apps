@@ -5,6 +5,7 @@ attribute :name,        kind_of:String
 attribute :capistrano,  kind_of:[TrueClass,FalseClass], default:false
 attribute :ruby,        kind_of:[String,FalseClass], default:false
 attribute :roles,       kind_of:Hash
+attribute :setup,       kind_of:Proc
 attribute :delete,      kind_of:Hash
 attribute :bash_path,   kind_of:String
 attribute :base_path,   kind_of:String, default:node.scpr_apps.base_path

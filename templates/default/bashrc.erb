@@ -1,0 +1,9 @@
+export PATH=~/bin:<%= @bash_path ? "#{@bash_path.gsub('!DIR!',@dir)}:" : "" %>$PATH
+
+<% if @resource.app_type == :rails %>
+export RAILS_ENV=<%= @key %>
+<% end %>
+
+<% (@env||{}).each do |k,v| %>
+export <%= k %>=<%= v.is_a?(String) ? v.gsub('!DIR!',@dir) : v %>
+<% end %>
