@@ -13,6 +13,11 @@ include_recipe "scpr-consul"
 package "git"
 include_recipe "nodejs"
 
+nodejs_npm "consul-elected" do
+  action :install
+  version "0.0.1"
+end
+
 # -- Look for app configuration -- #
 
 # FIXME: The use of a databag is just a placeholder for now. Eventually this
