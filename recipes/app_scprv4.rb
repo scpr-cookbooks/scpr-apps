@@ -65,17 +65,15 @@ scpr_apps "scprv4" do
       end
 
       # Set up scheduler
-      lifeguard_service "SCPRv4 Scheduler (#{key})" do
-        action      [:enable,:start]
-        service     "scprv4-#{key}-scheduler"
+      scpr_apps_consul_elected_service "SCPRv4 Scheduler (#{key})" do
+        action        [:enable,:start]
+        service       "scprv4-#{key}-scheduler"
         user          name
-        dir           dir
-        monitor_dir   "#{dir}/current"
-        command       "consul-elected -k scprv4/#{key}/scheduler -c 'bundle exec rake scheduler' --cwd ./current"
+        watch         "#{dir}/current/tmp/restart.txt"
+        verbose       true
+        command       "env RAILS_ENV=#{key} bundle exec rake scheduler"
+        cwd           "#{dir}/current"
         path          "#{dir}/bin"
-        env({
-          "RAILS_ENV"   => key
-        })
       end
     },
   })

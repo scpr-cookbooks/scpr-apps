@@ -1,0 +1,19 @@
+description "<%= @service.name || @service.service %>"
+
+start on <%= @service.depends || "runlevel [2345]" %>
+stop on runlevel [016]
+
+<% (@service.env||{}).each do |k,v| %>
+env <%= k %>=<%= v %>
+<% end %>
+
+console log
+
+setuid <%= @service.user %>
+
+script
+<% if @service.path %>PATH=<%= @service.path %>:$PATH <% end %>/usr/bin/consul-elected <%= @args.join(" ") %>
+end script
+
+respawn
+respawn limit 5 30
