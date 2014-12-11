@@ -28,7 +28,7 @@ action :enable do
   end
 
   args << "--key #{new_resource.key}"
-  args << %Q!--comand "#{new_resource.command}"!
+  args << %Q!--command "#{new_resource.command}"!
 
   if new_resource.cwd
     args << "--cwd #{new_resource.cwd}"
