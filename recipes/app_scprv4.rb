@@ -68,6 +68,7 @@ scpr_apps "scprv4" do
       scpr_apps_consul_elected_service "SCPRv4 Scheduler (#{key})" do
         action        [:enable,:start]
         service       "scprv4-#{key}-scheduler"
+        key           "scprv4/#{key}/scheduler"
         user          name
         watch         "#{dir}/current/tmp/restart.txt"
         verbose       true
