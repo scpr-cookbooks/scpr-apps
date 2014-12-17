@@ -67,7 +67,7 @@ scpr_apps "deploybot" do
       scpr_apps_consul_elected_service "Deploybot Lita (#{key})" do
         action        [:enable,:start]
         service       "deploybot-#{key}-lita"
-        key           "deployboy/#{key}/lita"
+        key           "deploybot/#{key}/lita"
         user          name
         watch         "#{dir}/current/tmp/restart.txt"
         verbose       true
