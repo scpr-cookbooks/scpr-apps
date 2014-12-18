@@ -71,9 +71,8 @@ scpr_apps "deploybot" do
         user          name
         watch         "#{dir}/current/tmp/restart.txt"
         verbose       true
-        command       "env RAILS_ENV=#{key} HOME=#{dir} bundle exec lita start"
+        command       "env RAILS_ENV=#{key} HOME=#{dir} PATH=#{dir}/bin:$PATH bundle exec lita start"
         cwd           "#{dir}/current/lita"
-        path          "#{dir}/bin"
       end
     },
   })

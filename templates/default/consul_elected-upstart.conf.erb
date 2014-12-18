@@ -11,9 +11,7 @@ console log
 
 setuid <%= @service.user %>
 
-script
-<% if @service.path %>PATH=<%= @service.path %>:$PATH <% end %>/usr/bin/consul-elected <%= @args.join(" ") %>
-end script
+exec /usr/bin/consul-elected <%= @args.join(" ") %>
 
 respawn
 respawn limit 5 30

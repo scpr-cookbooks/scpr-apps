@@ -4,7 +4,7 @@ maintainer_email 'erichardson@scpr.org'
 license          'all_rights'
 description      'Installs/Configures scpr-apps'
 long_description 'Installs/Configures scpr-apps'
-version          '0.1.25'
+version          '0.1.26'
 
 depends "apt"
 depends "nginx_passenger"
