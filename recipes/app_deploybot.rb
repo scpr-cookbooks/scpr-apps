@@ -16,7 +16,7 @@ scpr_apps "deploybot" do
 
   roles({
     web: ->(key,name,dir,config) {
-      include_recipe "nginx_passenger"
+      include_recipe "scpr-apps::_nginx"
 
       # Call nginx setup
       # FIXME: Need to configure max workers here

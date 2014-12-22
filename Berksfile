@@ -6,6 +6,6 @@ cookbook "lifeguard", github:"ewr/lifeguard-cookbook"
 cookbook "consul", github:"johnbellone/consul-cookbook"
 cookbook "consul-template", github:"adamkrone/chef-consul-template"
 cookbook "scpr-consul", path:"../scpr-consul"
-
+cookbook "scpr-tools", path:"../scpr-tools"
 
 metadata
