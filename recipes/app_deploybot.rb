@@ -14,6 +14,16 @@ scpr_apps "deploybot" do
   app_type    :rails
   deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC7/3r2DdYZFicz47pCVik2IpPzGxkAiLToPbALeYpvFh6icV5Cwuim01wW1hSgzJJKIjgeY8V686qp2boM3tooi7ASUzEOUOFNlcMedsI4l6cuvQDrGl/xUaM5U174E1JtirFD4/3zx4zNNHV61wNq5gi41LCSrLmoVgZFi6EyagokZPiZIDxfVlLBY0TBLt+4+N907HHFBox66X3jRhBB8r9dj+AVA+wB+L5tmbrScvDupmCR6g0UBvNekG2dNpFtp3sqYhJ4zu6hRzHuPA3WYnxVRSRfVEVTUPAlXUjxyi7Xs0aV45f8kBr/z7wWrq5QQnNosf/3vJ3fAVUdajSh deploybot-deploy@scpr"
 
+  setup ->(key,name,dir,config,env) {
+    logrotate_app name do
+      cookbook  "logrotate"
+      path      ["#{dir}/shared/log/*.log"]
+      size      100*1024*1024
+      rotate    3
+      options   ["missingok","compress","copytruncate"]
+    end
+  }
+
   roles({
     web: ->(key,name,dir,config) {
       include_recipe "scpr-apps::_nginx"

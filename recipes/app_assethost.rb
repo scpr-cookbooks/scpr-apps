@@ -15,7 +15,13 @@ scpr_apps "assethost" do
   deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDM8L0cgqJlAc2AIaPNGB/3LdwFxcPXgGgtOZN3oJyfuLhgI6SOfcN0SoHwvmb0HIp2kSyESFTBLI4gyzJGziEqiwg38uEIRuL3M3JjrxqihQESfCiRkvPH9DQrekYYQE6Vbc+ZdIeAQ/ioZTpABANRLsv908DoYtBC4A7r1UUJu9Y4wBxLqIz+mcJ2xe2z0c0aQfINKhxt8YrF4I3xCOdRuKulktMs7MKZnvjr0/TGsUAWSeGbUUF6xvBo4Arny5DGOJcpx8uHIzIVpK1DV/Dn3r/jE6p3JLh3yXABote+yLDPgFDPvW+yEDPVlmISQbIf58RnAmT5p4mKABBNfO1z assethost_deploy@scpr"
 
   setup ->(key,name,dir,config,env) {
-    # TODO: mount media NFS
+    logrotate_app name do
+      cookbook  "logrotate"
+      path      ["#{dir}/shared/log/*.log"]
+      size      100*1024*1024
+      rotate    3
+      options   ["missingok","compress","copytruncate"]
+    end
   }
 
   roles({
