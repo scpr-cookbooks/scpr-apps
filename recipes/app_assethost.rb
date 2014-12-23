@@ -55,6 +55,7 @@ scpr_apps "assethost" do
       # Make sure imagemagick is available
       package "imagemagick"
       package "libmagickwand-dev"
+      package "libimage-exiftool-perl"
 
       # exiftool?
 
