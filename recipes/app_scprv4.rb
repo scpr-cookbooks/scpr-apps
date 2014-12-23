@@ -54,7 +54,6 @@ scpr_apps "scprv4" do
         interval  '5s'
       end
 
-      # TODO: Logrotate
       # TODO: logstash-forwarder
 
     },
@@ -93,6 +92,18 @@ scpr_apps "scprv4" do
         watch         "#{dir}/current/tmp/restart.txt"
         verbose       true
         command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake scheduler"
+        cwd           "#{dir}/current"
+      end
+
+      # Set up Assethost pubsub cache expiration
+      scpr_apps_consul_elected_service "SCPRv4 Asset Sync (#{key})" do
+        action        [:enable,:start]
+        service       "scprv4-#{key}-assetsync"
+        key           "scprv4/#{key}/assetsync"
+        user          name
+        watch         "#{dir}/current/tmp/restart.txt"
+        verbose       true
+        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake asset_sync"
         cwd           "#{dir}/current"
       end
     },
