@@ -22,6 +22,10 @@ scpr_apps "assethost" do
       rotate    3
       options   ["missingok","compress","copytruncate"]
     end
+
+    # currently we pull EXIF during upload save, so we need this on the
+    # workers as well
+    package "libimage-exiftool-perl"
   }
 
   roles({
@@ -56,7 +60,6 @@ scpr_apps "assethost" do
       # Make sure imagemagick is available
       package "imagemagick"
       package "libmagickwand-dev"
-      package "libimage-exiftool-perl"
 
       # exiftool?
 
