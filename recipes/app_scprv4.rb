@@ -70,8 +70,9 @@ scpr_apps "scprv4" do
         command       "bundle exec resque-pool"
         path          "#{dir}/bin"
         env({
-          "TERM_CHILD"  => 1,
-          "RAILS_ENV"   => key
+          "TERM_CHILD"        => 1,
+          "RAILS_ENV"         => key,
+          "RUN_AT_EXIT_HOOKS" => true,
         })
       end
 

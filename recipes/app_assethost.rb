@@ -73,8 +73,9 @@ scpr_apps "assethost" do
         path          "#{dir}/bin"
         env({
           "TERM_CHILD"  => 1,
-          "RAILS_ENV"   => key
-        })
+          "RAILS_ENV"   => key,
+          "RUN_AT_EXIT_HOOKS" => true,
+          })
       end
 
       # -- register service -- #
