@@ -26,6 +26,10 @@ scpr_apps "assethost" do
     # currently we pull EXIF during upload save, so we need this on the
     # workers as well
     package "libimage-exiftool-perl"
+
+    # save with some pieces of ImageMagick, apparently
+    package "imagemagick"
+    package "libmagickwand-dev"
   }
 
   roles({
@@ -56,12 +60,6 @@ scpr_apps "assethost" do
     worker: ->(key,name,dir,config) {
       # Set up resque pool
       include_recipe "lifeguard"
-
-      # Make sure imagemagick is available
-      package "imagemagick"
-      package "libmagickwand-dev"
-
-      # exiftool?
 
       lifeguard_service "AssetHost Resque (#{key})" do
         action        [:enable,:start]
