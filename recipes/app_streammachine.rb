@@ -22,7 +22,7 @@ scpr_apps "streammachine" do
       lifeguard_service "StreamMachine Master (#{key})" do
         action        [:enable,:start]
         service       "streammachine-#{key}-master"
-        command       "env ./current/node_modules/.bin/streammachine --config=./current/config/master.json"
+        command       "env ./node_modules/.bin/streammachine --config=./current/config/master.json"
         user          name
         dir           dir
         monitor_dir   "#{dir}/current"
@@ -40,7 +40,7 @@ scpr_apps "streammachine" do
       lifeguard_service "StreamMachine Slave (#{key})" do
         action        [:enable,:start]
         service       "streammachine-#{key}-slave"
-        command       "env ./current/node_modules/.bin/streammachine --config=./current/config/slave.json"
+        command       "env ./node_modules/.bin/streammachine --config=./current/config/slave.json"
         user          name
         dir           dir
         monitor_dir   "#{dir}/current"
