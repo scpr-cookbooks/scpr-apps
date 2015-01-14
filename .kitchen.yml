@@ -21,3 +21,14 @@ suites:
             test:
               roles:    ['web','worker']
               hostname: scprv4.kitchen
+  - name: streammachine
+    run_list:
+      - recipe[scpr-apps::default]
+    attributes:
+      scpr_apps:
+        consul:
+          service_mode: bootstrap
+        config:
+          streammachine:
+            test:
+              roles:    ['master','slave']
