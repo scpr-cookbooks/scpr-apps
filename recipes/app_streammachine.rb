@@ -30,7 +30,7 @@ scpr_apps "streammachine" do
         restart       false
       end
 
-      consul_service_def "#{name}-master" do
+      consul_service_def "#{name}_master" do
         action    [:create]
         tags      ["streammachine","master"]
         notifies  :reload, "service[consul]"
@@ -48,7 +48,7 @@ scpr_apps "streammachine" do
         restart       false
       end
 
-      consul_service_def "#{name}-slave" do
+      consul_service_def "#{name}_slave" do
         action    [:create]
         tags      ["streammachine","slave"]
         notifies  :reload, "service[consul]"
