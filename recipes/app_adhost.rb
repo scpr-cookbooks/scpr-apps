@@ -77,6 +77,19 @@ scpr_apps "adhost" do
         tags      ["worker"]
         notifies  :reload, "service[consul]"
       end
+
+      # -- Set up Scheduler -- #
+
+      scpr_apps_consul_elected_service "AdHost Scheduler (#{key})" do
+        action        [:enable,:start]
+        service       "adhost-#{key}-scheduler"
+        key           "adhost/#{key}/scheduler"
+        user          name
+        watch         "#{dir}/current/tmp/restart.txt"
+        verbose       true
+        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake scheduler"
+        cwd           "#{dir}/current"
+      end
     },
   })
 
