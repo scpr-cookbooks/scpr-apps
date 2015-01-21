@@ -39,11 +39,12 @@ scpr_apps "scprv4" do
       # Call nginx setup
       # FIXME: Need to configure max workers here
       nginx_passenger_site name do
-        action      :create
-        dir         "#{dir}/current"
-        server      config.hostname
-        rails_env   key
-        log_format  "combined_timing"
+        action        :create
+        dir           "#{dir}/current"
+        server        "#{config.hostname} #{name}_web.service.consul"
+        rails_env     key
+        log_format    "combined_timing"
+        max_body_size "40M"
       end
 
       # -- consul advertising -- #
