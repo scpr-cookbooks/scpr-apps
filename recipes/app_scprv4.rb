@@ -44,7 +44,7 @@ scpr_apps "scprv4" do
         server        "#{config.hostname} #{name}_web.service.consul"
         rails_env     key
         log_format    "combined_timing"
-        max_body_size "40M"
+        max_body_size "75M"
       end
 
       # -- consul advertising -- #
