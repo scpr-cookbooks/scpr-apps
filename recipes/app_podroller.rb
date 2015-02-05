@@ -35,7 +35,7 @@ scpr_apps "podroller" do
         restart       true
       end
 
-      consul_service_def "#{name}" do
+      consul_service_def "#{name}_web" do
         action    [:create]
         tags      ["podroller"]
         notifies  :reload, "service[consul]"
