@@ -5,6 +5,7 @@
 # Copyright (c) 2014 Southern California Public Radio, All Rights Reserved.
 
 package "libcurl4-openssl-dev"
+package "libsqlite3-dev"
 
 scpr_apps "streamdash" do
   action      :run

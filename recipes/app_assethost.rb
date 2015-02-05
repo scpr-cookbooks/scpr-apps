@@ -41,7 +41,7 @@ scpr_apps "assethost" do
       nginx_passenger_site name do
         action        :create
         dir           "#{dir}/current"
-        server        config.hostname
+        server        "#{config.hostname} #{name}_web.service.consul"
         rails_env     key
         log_format    "combined_timing"
         max_body_size "40M"
