@@ -15,7 +15,7 @@ include_recipe "nodejs"
 
 nodejs_npm "consul-elected" do
   action :install
-  version "0.0.6"
+  version "0.0.7"
 end
 
 # -- Look for app configuration -- #
