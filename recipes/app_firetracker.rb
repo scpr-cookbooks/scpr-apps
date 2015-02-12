@@ -11,7 +11,7 @@ scpr_apps "firetracker" do
   action      :run
   capistrano  true
   app_type    :django
-  deploy_key  ""
+  deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8z5/0wlR7UcQ3/C8yqLTIEuvUepGfTnmLMxNYvINu7kXZQxTThR4VR9utkXwzGDNiubKmYjdUnX/hT40W82DKg/RjoQFKiJ0zYfcwYTc1dLzvsEoTkjAkVQLCgFSON7DWDsQQ1+ynkz30FFgFCOJurivfcMZ+nZRyUQTMZAyNiSv93lGwfGO27dWwf8JF66Ic11Zbse+ZCetiBuWMMs1dqEIT9siBHNNgc3cC4VzQlcT/s02j8NcWEn30eaoWUF6GrVgMwCEue5n1FEbqasoQce3o6u3VkJjv6fb3ayk3XyYNEhotnEk9dt966AZ/aQ66jQEK5eHYIst2hpoLHEMl firetracker-deploy@scpr"
   bash_path   "!DIR!/virtualenv/bin"
 
   setup ->(key,name,dir,config,env) {
