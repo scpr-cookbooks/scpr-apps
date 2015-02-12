@@ -7,11 +7,11 @@
 package "libmysqlclient-dev"
 include_recipe "python"
 
-scpr_apps "firetracker" do
+scpr_apps "earthquakes" do
   action      :run
   capistrano  true
   app_type    :django
-  deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC8z5/0wlR7UcQ3/C8yqLTIEuvUepGfTnmLMxNYvINu7kXZQxTThR4VR9utkXwzGDNiubKmYjdUnX/hT40W82DKg/RjoQFKiJ0zYfcwYTc1dLzvsEoTkjAkVQLCgFSON7DWDsQQ1+ynkz30FFgFCOJurivfcMZ+nZRyUQTMZAyNiSv93lGwfGO27dWwf8JF66Ic11Zbse+ZCetiBuWMMs1dqEIT9siBHNNgc3cC4VzQlcT/s02j8NcWEn30eaoWUF6GrVgMwCEue5n1FEbqasoQce3o6u3VkJjv6fb3ayk3XyYNEhotnEk9dt966AZ/aQ66jQEK5eHYIst2hpoLHEMl firetracker-deploy@scpr"
+  deploy_key  "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC1UYjWvFWxQjM3FQUREKQb0AubFrziIw4VkemcPUVD4yFHaj1SQ0e94NG7RoXFPqACQn8niShRrRL/8ZT8avvySR9/cPjH+C/xbUNHbhSzn8Oq5tzI58tYX1cw8uK13ECzxITaA80p0WBP/PLvt5H4yDNKjFmHl9gOC6/eX0FmwaTT8CqGzAaukj6csx08DUUIismZYt7nUmUg319CZ7FAG9xoIDRSLSgEhX0R64AHsma/H3htKlg9zWi/rRVUl6iZ5PwkrRJZ6OagexV9rwhd04eMAmlBI0BO6/BRCUmO3nCgsBDU74WKIUneoX6YBjzfe1j+2GCV3RJiYR37X+Lj earthquakes-deploy@scpr"
   bash_path   "!DIR!/virtualenv/bin"
 
   setup ->(key,name,dir,config,env) {
