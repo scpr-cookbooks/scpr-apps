@@ -13,9 +13,6 @@ scpr_apps "firetracker" do
   app_type    :django
   deploy_key  ""
   bash_path   "!DIR!/virtualenv/bin"
-  env({
-    DJANGO_SETTINGS_MODULE: "settings_production",
-  })
 
   setup ->(key,name,dir,config,env) {
     python_virtualenv "#{dir}/virtualenv" do
@@ -30,7 +27,7 @@ scpr_apps "firetracker" do
     end
 
     env.merge!({
-      FIRETRACKER_CONFIG_PATH:  config.config_path || "./config.yml",
+      FIRETRACKER_CONFIG_PATH:  "#{dir}/current/#{config}/#{key}.yml",
       VIRTUAL_ENV:              "#{dir}/virtualenv",
     })
   }
@@ -40,11 +37,10 @@ scpr_apps "firetracker" do
       include_recipe "scpr-apps::_nginx"
 
       # Call nginx setup
-      # FIXME: Need to configure max workers here
       nginx_passenger_site name do
         action      :create
         dir         "#{dir}/current"
-        server      config.hostname
+        server      "#{config.hostname} #{name}_web.service.consul"
         log_format  "combined_timing"
         env         key
         user        name
