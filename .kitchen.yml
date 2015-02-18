@@ -32,3 +32,15 @@ suites:
           streammachine:
             test:
               roles:    ['master','slave']
+  - name: projects
+    run_list:
+      - recipe[scpr-apps::default]
+    attributes:
+      scpr_apps:
+        consul:
+          service_mode: bootstrap
+        config:
+          projects:
+            test:
+              roles:    ['web']
+              hostname: "projects.scpr.org"
