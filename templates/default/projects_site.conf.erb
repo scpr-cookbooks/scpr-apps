@@ -1,0 +1,39 @@
+server {
+    listen 80;
+    server_name <%= @resource.server %>;
+
+    access_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.access.log <%= @log_format %>;
+    error_log <%= node.nginx_passenger.log_dir %>/<%= @resource.name %>.error.log;
+
+    # Redirect for old static namespace 2014-07-04
+    # There are some paths like /static/static-files/... , so we need to
+    # have these two separate rules so we don't do a double-redirect.
+    rewrite ^/static$ / permanent;
+    rewrite ^/static/(.*)$ /$1 permanent;
+
+    ## Redirects for old projects namespaces 2014-07-04
+
+    rewrite ^/firetracker$ http://firetracker.scpr.org/ permanent;
+    rewrite ^/firetracker/(.*)$ http://firetracker.scpr.org/$1 permanent;
+
+    rewrite ^/earthquakes$ http://earthquakes.scpr.org/ permanent;
+    rewrite ^/earthquakes/(.*)$ http://earthquakes.scpr.org/$1 permanent;
+
+    rewrite ^/prison$ http://prison.scpr.org/ permanent;
+    rewrite ^/prison/(.*)$ http://prison.scpr.org/$1 permanent;
+
+    rewrite ^/salaries$ http://salaries.scpr.org/ permanent;
+    rewrite ^/salaries/(.*)$ http://salaries.scpr.org/$1 permanent;
+
+    root  <%= @resource.dir %>;
+    autoindex on;
+
+    # Serve gzipped assets.
+    location ~ /*\.(jpg|css|js|png)$/ {
+      gzip_static on;
+      expires max;
+      add_header  Cache-Control public;
+      add_header  Last-Modified "";
+      add_header  ETag "";
+    }
+}

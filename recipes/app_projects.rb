@@ -22,6 +22,7 @@ scpr_apps "projects" do
         server        "#{config.hostname} #{name}_web.service.consul"
         rails_env     key
         static        true
+        template      "projects_site.conf.erb"
       end
 
       # -- consul advertising -- #
