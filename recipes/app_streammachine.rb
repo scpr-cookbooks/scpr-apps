@@ -19,10 +19,12 @@ scpr_apps "streammachine" do
       # we need ffmpeg on the master for transcoding
       include_recipe "scpr-tools::ffmpeg"
 
+      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/master.json" : "env ./node_modules/.bin/streammachine --config=./config/master.json"
+
       lifeguard_service "StreamMachine Master (#{key})" do
         action        [:enable,:start]
         service       "streammachine-#{key}-master"
-        command       "env ./node_modules/.bin/streammachine --config=./config/master.json"
+        command       command
         user          name
         dir           dir
         monitor_dir   "#{dir}/current"
@@ -37,10 +39,13 @@ scpr_apps "streammachine" do
       end
     },
     slave: ->(key,name,dir,config) {
+
+      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/master.json" : "env ./node_modules/.bin/streammachine --config=./config/master.json"
+
       lifeguard_service "StreamMachine Slave (#{key})" do
         action        [:enable,:start]
         service       "streammachine-#{key}-slave"
-        command       "env ./node_modules/.bin/streammachine --config=./config/slave.json"
+        command       command
         user          name
         dir           dir
         monitor_dir   "#{dir}/current"
