@@ -40,7 +40,7 @@ scpr_apps "streammachine" do
     },
     slave: ->(key,name,dir,config) {
 
-      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/master.json" : "env ./node_modules/.bin/streammachine --config=./config/master.json"
+      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/slave.json" : "env ./node_modules/.bin/streammachine --config=./config/slave.json"
 
       lifeguard_service "StreamMachine Slave (#{key})" do
         action        [:enable,:start]
