@@ -1,11 +1,12 @@
+source "http://ops-minimart.i.scprdev.org"
 source "https://supermarket.getchef.com"
 
-cookbook "nginx_passenger", github:"ewr/nginx_passenger-cookbook"
-cookbook "lifeguard", github:"ewr/lifeguard-cookbook"
+cookbook "nginx_passenger"
+cookbook "lifeguard"
 
-cookbook "consul", github:"johnbellone/consul-cookbook"
-cookbook "consul-template", github:"adamkrone/chef-consul-template"
-cookbook "scpr-consul", path:"../scpr-consul"
-cookbook "scpr-tools", path:"../scpr-tools"
+cookbook "consul"
+cookbook "consul-template"
+cookbook "scpr-consul"
+cookbook "scpr-tools"
 
 metadata

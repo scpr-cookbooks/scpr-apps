@@ -4,18 +4,20 @@ driver:
 
 provisioner:
   name: chef_zero
+  require_chef_omnibus: "12.2.1"
 
 platforms:
   - name: ubuntu-12.04
 
 suites:
-  - name: default
+  - name: scprv4
     run_list:
       - recipe[scpr-apps::default]
     attributes:
+      consul:
+        service_mode: bootstrap
       scpr_apps:
-        consul:
-          service_mode: bootstrap
+        nfs_enabled: false
         config:
           scprv4:
             test:
@@ -25,9 +27,9 @@ suites:
     run_list:
       - recipe[scpr-apps::default]
     attributes:
+      consul:
+        service_mode: bootstrap
       scpr_apps:
-        consul:
-          service_mode: bootstrap
         config:
           streammachine:
             test:
@@ -36,11 +38,23 @@ suites:
     run_list:
       - recipe[scpr-apps::default]
     attributes:
+      consul:
+        service_mode: bootstrap
       scpr_apps:
-        consul:
-          service_mode: bootstrap
         config:
           projects:
             test:
               roles:    ['web']
               hostname: "projects.scpr.org"
+  - name: newsroom
+    run_list:
+      - recipe[scpr-apps::default]
+    attributes:
+      consul:
+        service_mode: bootstrap
+      scpr_apps:
+        config:
+          newsroom:
+            test:
+              roles:    ['web']
+              hostname: "newsroom.scprdev.org"

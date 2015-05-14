@@ -7,7 +7,7 @@ long_description 'Installs/Configures scpr-apps'
 version          '0.1.66'
 
 depends "apt"
-depends "nginx_passenger", "~> 0.5.1"
+depends "nginx_passenger", "~> 0.5.5"
 depends "lifeguard"
 depends "scpr-consul"
 depends "scpr-tools"
