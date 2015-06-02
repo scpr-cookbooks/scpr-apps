@@ -43,6 +43,14 @@ scpr_apps "ois" do
         path      "/"
         interval  '5s'
       end
+
+      # just here to get us db migrations
+      consul_service_def "#{name}_worker" do
+        action    :create
+        tags      ["worker"]
+        notifies  :reload, "service[consul]"
+      end
+
     },
   })
 
