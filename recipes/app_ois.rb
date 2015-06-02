@@ -36,12 +36,19 @@ scpr_apps "ois" do
 
       # -- consul advertising -- #
 
-      scpr_consul_web_service name do
+      #scpr_consul_web_service name do
+      #  action    :create
+      #  dir       "#{dir}/current"
+      #  hostname  config.hostname
+      #  path      "/"
+      #  interval  '5s'
+      #end
+
+      consul_service_def "#{name}_web" do
         action    :create
-        dir       "#{dir}/current"
-        hostname  config.hostname
-        path      "/"
-        interval  '5s'
+        port      80
+        tags      ["web"]
+        notifies  :reload, "service[consul]"
       end
 
       # just here to get us db migrations
