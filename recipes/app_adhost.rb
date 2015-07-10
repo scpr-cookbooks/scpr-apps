@@ -80,8 +80,9 @@ scpr_apps "adhost" do
 
       # -- Set up Scheduler -- #
 
+      # 7/10/2015: change to :stop,:remove. Service can be removed next
       scpr_apps_consul_elected_service "AdHost Scheduler (#{key})" do
-        action        [:enable,:start]
+        action        [:stop,:remove]
         service       "adhost-#{key}-scheduler"
         key           "adhost/#{key}/scheduler"
         user          name
