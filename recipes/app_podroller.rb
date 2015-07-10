@@ -17,7 +17,7 @@ scpr_apps "podroller" do
       include_recipe "nfs"
       scpr_tools_media_mount "#{dir}/audio" do
         action :create
-        remote_path "/scpr/media/audio"
+        remote_path "#{node.scpr_apps.media_path}/audio"
       end
     end
   }

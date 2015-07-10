@@ -18,8 +18,8 @@ scpr_apps "scprv4" do
     if node.scpr_apps.nfs_enabled
       include_recipe "nfs"
       scpr_tools_media_mount "#{dir}/media" do
-        action :create
-        remote_path "/scpr/media"
+        action      :create
+        remote_path node.scpr_apps.media_path
       end
     end
 
