@@ -57,7 +57,16 @@ scpr_apps "scprv4" do
         interval  '5s'
       end
 
-      # TODO: logstash-forwarder
+      # -- logstash-forwarder -- #
+
+      log_forward name do
+        paths ["#{node.nginx_passenger.log_dir}/#{name}.access.log"]
+        fields({
+          type: "nginx",
+          app:  "scprv4",
+          env:  key,
+        })
+      end
 
     },
     worker: ->(key,name,dir,config) {
