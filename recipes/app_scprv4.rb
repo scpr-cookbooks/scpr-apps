@@ -120,6 +120,19 @@ scpr_apps "scprv4" do
         cwd           "#{dir}/current"
       end
     },
+    contentbot: ->(key,name,dir,config) {
+      # Set up Lita
+      scpr_apps_consul_elected_service "SCPRv4 Contentbot (#{key})" do
+        action        [:enable,:start]
+        service       "scprv4-#{key}-contentbot"
+        key           "scprv4/#{key}/contentbot"
+        user          name
+        watch         "#{dir}/current/tmp/restart.txt"
+        verbose       true
+        command       "env RAILS_ENV=#{key} HOME=#{dir} PATH=#{dir}/bin:$PATH bundle exec lita start"
+        cwd           "#{dir}/current/lita"
+      end
+    }
   })
 
 end
