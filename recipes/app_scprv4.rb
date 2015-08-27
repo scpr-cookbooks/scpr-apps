@@ -132,6 +132,15 @@ scpr_apps "scprv4" do
         command       "env RAILS_ENV=#{key} HOME=#{dir} PATH=#{dir}/bin:$PATH bundle exec lita start"
         cwd           "#{dir}/current/lita"
       end
+
+      # -- register service -- #
+
+      consul_service_def "#{name}_contentbot" do
+        action    :create
+        tags      ["worker"]
+        notifies  :reload, "service[consul]"
+      end
+
     }
   })
 
