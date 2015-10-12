@@ -67,6 +67,7 @@ scpr_apps "streammachine" do
         default_logger true
         run_template_name "streammachine"
         options({
+          dir:    dir,
           user:   name,
           config: "#{dir}/config/standalone.json",
           watch:  "#{dir}/tmp/restart.txt",
