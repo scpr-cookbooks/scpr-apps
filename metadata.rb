@@ -4,7 +4,7 @@ maintainer_email 'erichardson@scpr.org'
 license          'all_rights'
 description      'Installs/Configures scpr-apps'
 long_description 'Installs/Configures scpr-apps'
-version          '0.1.74'
+version          '0.1.75'
 
 depends "apt"
 depends "nginx_passenger", "~> 0.5.5"
@@ -15,3 +15,4 @@ depends "nodejs"
 depends "python", "~> 1.4.6"
 depends "logrotate"
 depends "scpr-logstash-forwarder"
+depends "runit"

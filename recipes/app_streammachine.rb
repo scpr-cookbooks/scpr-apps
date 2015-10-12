@@ -58,6 +58,26 @@ scpr_apps "streammachine" do
         tags      ["streammachine","slave"]
         notifies  :reload, "service[consul]"
       end
-    }
+    },
+    standalone: ->(key,name,dir,config) {
+      include_recipe "scpr-tools::ffmpeg"
+      include_recipe "runit"
+
+      runit_service name do
+        default_logger true
+        run_template_name "streammachine"
+        options({
+          user:   name,
+          config: "#{dir}/config/standalone.json",
+          watch:  "#{dir}/tmp/restart.txt",
+        })
+      end
+
+      consul_service_def name do
+        action    [:create]
+        tags      ["streammachine","standalone"]
+        notifies  :reload, "service[consul]"
+      end
+    },
   })
 end
