@@ -73,7 +73,7 @@ scpr_apps "streammachine" do
         })
       end
 
-      consul_service_def name do
+      consul_service_def "#{name}_standalone" do
         action    [:create]
         tags      ["streammachine","standalone"]
         notifies  :reload, "service[consul]"
