@@ -69,7 +69,7 @@ scpr_apps "streammachine" do
         options({
           dir:    dir,
           user:   name,
-          config: "#{dir}/config/standalone.json",
+          config: "#{dir}/current/config/standalone.json",
           watch:  "#{dir}/current/tmp/restart.txt",
         })
       end
