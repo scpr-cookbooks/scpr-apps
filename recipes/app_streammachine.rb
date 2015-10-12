@@ -70,7 +70,7 @@ scpr_apps "streammachine" do
           dir:    dir,
           user:   name,
           config: "#{dir}/config/standalone.json",
-          watch:  "#{dir}/tmp/restart.txt",
+          watch:  "#{dir}/current/tmp/restart.txt",
         })
       end
 
