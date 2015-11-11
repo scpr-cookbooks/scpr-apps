@@ -34,6 +34,17 @@ scpr_apps "projects" do
         path      "/"
         interval  '5s'
       end
+
+      # -- logstash-forwarder -- #
+
+      log_forward name do
+        paths ["#{node.nginx_passenger.log_dir}/#{name}.access.log"]
+        fields({
+          type: "nginx",
+          app:  "projects",
+          env:  key,
+        })
+      end
     },
   })
 

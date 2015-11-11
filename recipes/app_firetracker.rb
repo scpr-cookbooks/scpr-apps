@@ -55,6 +55,17 @@ scpr_apps "firetracker" do
         path      "/"
         interval  '30s'
       end
+
+      # -- logstash-forwarder -- #
+
+      log_forward name do
+        paths ["#{node.nginx_passenger.log_dir}/#{name}.access.log"]
+        fields({
+          type: "nginx",
+          app:  "firetracker",
+          env:  key,
+        })
+      end
     },
     worker: ->(key,name,dir,config) {
       consul_service_def "#{name}_worker" do
