@@ -19,17 +19,33 @@ scpr_apps "streammachine" do
       # we need ffmpeg on the master for transcoding
       include_recipe "scpr-tools::ffmpeg"
 
-      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/master.json" : "env ./node_modules/.bin/streammachine --config=./config/master.json"
+      # FIXME: This is totally attribute abuse. new_style is now old style
+      if config[:new_style]
+        command = "env ./streammachine-cmd --config=./config/master.json"
 
-      lifeguard_service "StreamMachine Master (#{key})" do
-        action        [:enable,:start]
-        service       "streammachine-#{key}-master"
-        command       command
-        user          name
-        dir           dir
-        monitor_dir   "#{dir}/current"
-        handoff       true
-        restart       false
+        lifeguard_service "StreamMachine Master (#{key})" do
+          action        [:enable,:start]
+          service       "streammachine-#{key}-master"
+          command       command
+          user          name
+          dir           dir
+          monitor_dir   "#{dir}/current"
+          handoff       true
+          restart       false
+        end
+      else
+        include_recipe "runit"
+
+        runit_service name do
+          default_logger true
+          run_template_name "streammachine"
+          options({
+            dir:    dir,
+            user:   name,
+            config: "#{dir}/current/config/master.json",
+            watch:  "#{dir}/current/tmp/restart.txt",
+          })
+        end
       end
 
       consul_service_def "#{name}_master" do
@@ -40,17 +56,33 @@ scpr_apps "streammachine" do
     },
     slave: ->(key,name,dir,config) {
 
-      command = config[:new_style] ? "env ./streammachine-cmd --config=./config/slave.json" : "env ./node_modules/.bin/streammachine --config=./config/slave.json"
+      # FIXME: This is totally attribute abuse. new_style is now old style
+      if config[:new_style]
+        command = "env ./streammachine-cmd --config=./config/slave.json"
 
-      lifeguard_service "StreamMachine Slave (#{key})" do
-        action        [:enable,:start]
-        service       "streammachine-#{key}-slave"
-        command       command
-        user          name
-        dir           dir
-        monitor_dir   "#{dir}/current"
-        handoff       true
-        restart       false
+        lifeguard_service "StreamMachine Slave (#{key})" do
+          action        [:enable,:start]
+          service       "streammachine-#{key}-slave"
+          command       command
+          user          name
+          dir           dir
+          monitor_dir   "#{dir}/current"
+          handoff       true
+          restart       false
+        end
+      else
+        include_recipe "runit"
+
+        runit_service name do
+          default_logger true
+          run_template_name "streammachine"
+          options({
+            dir:    dir,
+            user:   name,
+            config: "#{dir}/current/config/slave.json",
+            watch:  "#{dir}/current/tmp/restart.txt",
+          })
+        end
       end
 
       consul_service_def "#{name}_slave" do
