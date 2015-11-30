@@ -82,6 +82,7 @@ scpr_apps "streammachine" do
             config: "#{dir}/current/config/slave.json",
             watch:  "#{dir}/current/tmp/restart.txt",
           })
+          log_size    104857600 # 100Mb
         end
       end
 
@@ -104,6 +105,7 @@ scpr_apps "streammachine" do
           config: "#{dir}/current/config/standalone.json",
           watch:  "#{dir}/current/tmp/restart.txt",
         })
+        log_size    104857600 # 100Mb
       end
 
       consul_service_def "#{name}_standalone" do
