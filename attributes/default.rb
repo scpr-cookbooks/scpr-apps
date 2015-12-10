@@ -12,6 +12,8 @@ default.scpr_apps.ruby.versions['2.1'] = "2.1.4-1bbox1~precise2"
 default.scpr_apps.consul_enabled  = true
 default.scpr_apps.nfs_enabled     = true
 
+default.scpr_apps.jruby_install_path = "/opt"
+
 #----------
 
 include_attribute "nginx_passenger"

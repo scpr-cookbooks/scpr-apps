@@ -28,11 +28,13 @@ suites:
     attributes:
       consul:
         service_mode: bootstrap
+      ffmpeg:
+        git_repository: https://github.com/FFmpeg/FFmpeg.git
       scpr_apps:
         config:
           streammachine:
             test:
-              roles:    ['master','slave']
+              roles:    ['standalone']
   - name: projects
     run_list:
       - recipe[scpr-apps::default]
@@ -57,3 +59,6 @@ suites:
             test:
               roles:    ['web']
               hostname: "newsroom.scprdev.org"
+  - name: jruby
+    run_list:
+      - recipe[scpr-apps-test::jruby]
