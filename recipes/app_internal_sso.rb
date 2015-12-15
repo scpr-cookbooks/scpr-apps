@@ -44,7 +44,7 @@ scpr_apps "internal_sso" do
         action    :create
         dir       "#{dir}/current"
         hostname  config.hostname
-        path      "/"
+        path      "/login"
         interval  '5s'
       end
 
