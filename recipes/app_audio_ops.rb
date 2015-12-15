@@ -44,7 +44,7 @@ scpr_apps "audio_ops" do
         action    :create
         dir       "#{dir}/current"
         hostname  config.hostname
-        path      "/"
+        path      "/check"
         interval  '5s'
       end
 
