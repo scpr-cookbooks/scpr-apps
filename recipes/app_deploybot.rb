@@ -93,7 +93,7 @@ scpr_apps "deploybot" do
         user          name
         watch         "#{dir}/current/tmp/restart.txt"
         verbose       true
-        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake scheduler"
+        command       "env PATH=#{dir}/bin:$PATH HOME=#{dir} RAILS_ENV=#{key} bundle exec rake scheduler"
         cwd           "#{dir}/current"
       end
     },
