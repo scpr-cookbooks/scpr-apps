@@ -84,6 +84,18 @@ scpr_apps "deploybot" do
         command       "env RAILS_ENV=#{key} HOME=#{dir} PATH=#{dir}/bin:$PATH bundle exec lita start"
         cwd           "#{dir}/current/lita"
       end
+
+      # Set up scheduler
+      scpr_apps_consul_elected_service "Deploybot Scheduler (#{key})" do
+        action        [:enable,:start]
+        service       "deploybot-#{key}-scheduler"
+        key           "deploybot/#{key}/scheduler"
+        user          name
+        watch         "#{dir}/current/tmp/restart.txt"
+        verbose       true
+        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake scheduler"
+        cwd           "#{dir}/current"
+      end
     },
   })
 
