@@ -2,6 +2,8 @@ default.scpr_apps.databag     = 'scpr_apps'
 default.scpr_apps.config      = nil
 default.scpr_apps.config_file = "/etc/scpr_apps.json"
 
+default.scpr_apps.banned_ip_key = "scpr_banned_ips"
+
 default.scpr_apps.media_path  = "/scpr/media"
 
 default.scpr_apps.base_path   = "/scpr"
@@ -20,3 +22,4 @@ include_attribute "nginx_passenger"
 
 default.nginx_passenger.log_dir   = "/scpr/log"
 default.nginx_passenger.sites_dir = "/etc/nginx/sites"
+default.nginx_passenger.max_requests = 10000

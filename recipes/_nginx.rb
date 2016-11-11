@@ -8,6 +8,39 @@ template "/etc/nginx/conf.d/real_ip.conf" do
   notifies :reload, "service[nginx]"
 end
 
+template "/etc/nginx/conf.d/banned_ips.conf.consul" do
+
+end
+
+# create an empty file first, so nginx doesn't complain that it's missing
+file "/etc/nginx/conf.d/banned_ips.conf" do
+  action    :create_if_missing
+  content   "# Should be replaced via consul-template\n"
+end
+
+template "/etc/nginx/conf.d/banned_ips.conf.consul" do
+  action    :create
+  variables({
+    consul_key: node.scpr_apps.banned_ip_key,
+  })
+  notifies  :reload, "service[consul-template]"
+end
+
+include_recipe "scpr-consul::consul-template"
+
+consul_template_config "nginx-banned-ips" do
+  action :create
+  templates([
+    {
+      source:       "/etc/nginx/conf.d/banned_ips.conf.consul",
+      destination:  "/etc/nginx/conf.d/banned_ips.conf",
+      command:      "service nginx reload",
+    }
+  ])
+  notifies :reload, "service[nginx]"
+end
+
+
 # -- Rotate all app logs -- #
 
 logrotate_app "scpr-nginx-logs" do

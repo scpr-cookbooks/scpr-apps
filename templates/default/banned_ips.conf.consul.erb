@@ -1,0 +1,4 @@
+# Consul Template generated via Chef
+# IP Blocks are pulled from Consul under <%= @consul_key %>
+{{range ls "<%= @consul_key %>"}}
+deny {{.Key}};{{end}}
