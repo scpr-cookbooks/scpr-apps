@@ -22,4 +22,4 @@ include_attribute "nginx_passenger"
 
 default.nginx_passenger.log_dir   = "/scpr/log"
 default.nginx_passenger.sites_dir = "/etc/nginx/sites"
-default.nginx_passenger.max_requests = 2500
+default.nginx_passenger.max_requests = 10000

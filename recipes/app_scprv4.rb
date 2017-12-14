@@ -25,7 +25,7 @@ scpr_apps "scprv4" do
 
     logrotate_app name do
       cookbook  "logrotate"
-      path      ["#{dir}/shared/log/*.log"]
+      path      ["#{dir}/shared/log/*.log", "#{dir}/current/log/oink.log"]
       size      100*1024*1024
       rotate    3
       options   ["missingok","compress","copytruncate"]
