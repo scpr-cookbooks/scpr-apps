@@ -1,12 +1,17 @@
 ---
 driver:
-  name: vagrant
+  name: docker
+  use_sudo: false
+  privileged: true
+  username: kitchen
+  provision_command: mkdir -p /run/sshd
 
 provisioner:
   name: chef_zero
 
 platforms:
   - name: ubuntu-12.04
+  - name: ubuntu-18.04
 
 suites:
   - name: scprv4
