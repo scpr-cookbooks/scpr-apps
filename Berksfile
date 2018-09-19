@@ -7,8 +7,8 @@ cookbook "lifeguard"
 cookbook "scpr-consul"
 cookbook "scpr-tools"
 
-cookbook 'scpr-apps-test', path:"./test/cookbook"
+#cookbook 'scpr-apps-test', path:"./test/cookbook"
 
-cookbook "libarchive", path:"../forks/libarchive-cookbook"
+cookbook "libarchive"
 
 metadata
