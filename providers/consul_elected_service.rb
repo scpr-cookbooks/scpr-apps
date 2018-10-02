@@ -7,7 +7,7 @@ action :enable do
 
   # HACK to restart services on config changes
   service "#{new_resource.service}-stop" do
-    service_name  new_resource.service
+    service_name  "#{new_resource.service}"
     provider      Chef::Provider::Service::Upstart
     action        :nothing
     supports      [:stop]
@@ -15,7 +15,7 @@ action :enable do
   end
 
   service "#{new_resource.service}-start" do
-    service_name  new_resource.service
+    service_name  "#{new_resource.service}"
     provider      Chef::Provider::Service::Upstart
     action        :nothing
     supports      [:start]

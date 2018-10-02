@@ -1,6 +1,6 @@
 # scpr-apps
 
-Recipes for SCPR applications
+TODO: Enter the cookbook description here.
 
 ## Testing
 
