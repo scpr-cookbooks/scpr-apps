@@ -7,14 +7,14 @@ license          'All rights reserved'
 description      'Installs/Configures scpr-apps'
 long_description 'Installs/Configures scpr-apps'
 supports         'ubuntu'
-version          '0.2.29'
+version          '0.2.31'
 
 depends "apt"
 depends "nginx_passenger", "~> 0.5.5"
 depends "lifeguard"
 depends "scpr-consul"
 depends "scpr-tools"
-depends "nfs"
+depends "nfs", "= 2.4.0"
 depends "nodejs"
 depends "python", "~> 1.4.6"
 depends "logrotate"
