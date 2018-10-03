@@ -1,5 +1,5 @@
 include Chef::DSL::IncludeRecipe
-use_inline_resources
+use_inline_resources # ~FC113
 
 action :install do
   include_recipe "apt"
@@ -40,9 +40,9 @@ action :install do
   else
     # make sure the brightbox PPA is added
 
-    apt_repository "brightbox-ruby-ng" do
+    apt_repository  "brightbox-ruby-ng" do
       uri           "http://ppa.launchpad.net/brightbox/ruby-ng/ubuntu"
-      distribution  node["lsb"]["codename"]
+      distribution  node['lsb']['codename'] #~FC019
       components    ["main"]
       keyserver     "hkp://keyserver.ubuntu.com:80"
       key           "C3173AA6"
