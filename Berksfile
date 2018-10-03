@@ -9,6 +9,6 @@ cookbook "scpr-tools"
 
 #cookbook 'scpr-apps-test', path:"./test/cookbook"
 
-cookbook "libarchive"
+cookbook 'libarchive', '= 1.0.0'
 
 metadata
