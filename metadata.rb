@@ -7,7 +7,7 @@ license          'All rights reserved'
 description      'Installs/Configures scpr-apps'
 long_description 'Installs/Configures scpr-apps'
 supports         'ubuntu'
-version          '0.2.31'
+version          '0.2.32'
 
 depends "apt"
 depends "nginx_passenger", "~> 0.5.5"
