@@ -1,4 +1,5 @@
 # scpr-apps
+[![CircleCI](https://circleci.com/gh/scpr-cookbooks/scpr-apps.svg?style=svg)](https://circleci.com/gh/scpr-cookbooks/scpr-apps)
 
 Recipes for SCPR applications
 
