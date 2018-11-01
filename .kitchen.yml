@@ -7,7 +7,9 @@ driver:
   provision_command: mkdir -p /run/sshd
 
 provisioner:
-  name: chef_zero
+  product_name: chef
+  product_version: 12
+
 
 platforms:
   - name: ubuntu-12.04
