@@ -69,57 +69,6 @@ scpr_apps "scprv4" do
       end
 
     },
-    worker: ->(key,name,dir,config) {
-      # Set up resque pool
-      include_recipe "lifeguard"
-
-      lifeguard_service "SCPRv4 Resque (#{key})" do
-        action        [:enable,:start]
-        service       "scprv4-#{key}-resque"
-        user          name
-        dir           dir
-        monitor_dir   "#{dir}/current"
-        command       "bundle exec resque-pool"
-        path          "#{dir}/bin"
-        env({
-          "TERM_CHILD"        => 1,
-          "RAILS_ENV"         => key,
-          "RUN_AT_EXIT_HOOKS" => true,
-        })
-      end
-
-      # -- register service -- #
-
-      consul_service_def "#{name}_worker" do
-        action    :create
-        tags      ["worker"]
-        notifies  :reload, "service[consul]"
-      end
-
-      # Set up scheduler
-      scpr_apps_consul_elected_service "SCPRv4 Scheduler (#{key})" do
-        action        [:enable,:start]
-        service       "scprv4-#{key}-scheduler"
-        key           "scprv4/#{key}/scheduler"
-        user          name
-        watch         "#{dir}/current/tmp/restart.txt"
-        verbose       true
-        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake scheduler"
-        cwd           "#{dir}/current"
-      end
-
-      # Set up Assethost pubsub cache expiration
-      scpr_apps_consul_elected_service "SCPRv4 Asset Sync (#{key})" do
-        action        [:enable,:start]
-        service       "scprv4-#{key}-assetsync"
-        key           "scprv4/#{key}/assetsync"
-        user          name
-        watch         "#{dir}/current/tmp/restart.txt"
-        verbose       true
-        command       "env PATH=#{dir}/bin:$PATH RAILS_ENV=#{key} bundle exec rake asset_sync"
-        cwd           "#{dir}/current"
-      end
-    },
     contentbot: ->(key,name,dir,config) {
       # Set up Lita
       scpr_apps_consul_elected_service "SCPRv4 Contentbot (#{key})" do
